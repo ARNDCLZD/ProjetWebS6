@@ -1,0 +1,229 @@
+<div class="container">
+    <div class="row pt-5 gx-3">
+        <div class="col-4 border">
+            <div class="p-3">
+                <h3>Type d'élément</h3>
+                <hr class="hr" />
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Materiel" (change)="onListTypeChanged($event)" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Matériel
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Etudiant" (change)="onListTypeChanged($event)">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Etudiants
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="Responsable" (change)="onListTypeChanged($event)">
+                    <label class="form-check-label" for="flexRadioDefault3">
+                        Responsables
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-8 border">
+            <div *ngIf="listType=='Materiel'">
+                <div class="input-group rounded my-2 col-12">
+                    <input type="search" class="form-control rounded" placeholder="Rechercher un élément" aria-label="Search" aria-describedby="search-addon" />
+                    <a class="input-group-text border-0" id="search-addon">
+                      <i class="fas fa-search"></i>
+                    </a>
+                </div>
+                <div class="accordion accordion-flush">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingDisponible">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseDisponible" aria-expanded="false" aria-controls="flush-collapseDisponible">
+                                Disponibles
+                            </button>
+                        </h2>
+                        <div id="flush-collapseDisponible" class="accordion-collapse collapse" aria-labelledby="flush-headingDisponible">
+                            <div class="accordion-body">
+                                <div *ngFor="let categorie of categoriesDispo">
+                                    <div class="accordion accordion-flush" id="accordionFlushDisponible{{categorie.id}}">
+                                        <div class="accordion-item">
+                                          <h2 class="accordion-header" id="flush-headingDisponible{{categorie.id}}">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" attr.data-bs-target="#flush-collapseDisponible{{categorie.id}}" aria-expanded="false" attr.aria-controls="flush-collapseDisponible{{categorie.id}}">
+                                              {{categorie.libelle}}
+                                            </button>
+                                          </h2>
+                                          <div id="flush-collapseDisponible{{categorie.id}}" class="accordion-collapse collapse" attr.aria-labelledby="flush-headingDisponible{{categorie.id}}">
+                                            <div class="accordion-body">
+                                                <div *ngIf="categorie.materiels == ''">
+                                                    Il n'y a aucun matériel d'enregistré dans cette catégorie :(
+                                                </div>
+                                                <table *ngIf="categorie.materiels != ''" id="tableMateriel" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Identifiant</td>
+                                                            <td>Libelle</td>
+                                                            <td>Description</td>
+                                                            <td>Action</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let materiel of categorie.materiels">
+                                                            <td>#{{materiel.code}}</td>
+                                                            <td>{{materiel.libelle}}</td>
+                                                            <td>{{materiel.description}}</td>
+                                                            <td>
+                                                                <button class="btn bg-light" type="button" data-bs-toggle="modal" data-bs-target="#EmprunterModal" (click)="onChangeCurrentBarCode(materiel.code)">
+                                                                    +
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingEmprunt">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEmprunt" aria-expanded="false" aria-controls="flush-collapseEmprunt">
+                                Empruntés
+                            </button>
+                        </h2>
+                        <div id="flush-collapseEmprunt" class="accordion-collapse collapse" aria-labelledby="flush-headingEmprunt">
+                            <div class="accordion-body">
+                                <div *ngFor="let categorie of categoriesEmprunt">
+                                    <div class="accordion accordion-flush" id="accordionFlushEmprunt{{categorie.id}}">
+                                        <div class="accordion-item">
+                                          <h2 class="accordion-header" id="flush-headingEmprunt{{categorie.id}}">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" attr.data-bs-target="#flush-collapseEmprunt{{categorie.id}}" aria-expanded="false" attr.aria-controls="flush-collapseEmprunt{{categorie.id}}">
+                                              {{categorie.libelle}}
+                                            </button>
+                                          </h2>
+                                          <div id="flush-collapseEmprunt{{categorie.id}}" class="accordion-collapse collapse" attr.aria-labelledby="flush-headingEmprunt{{categorie.id}}">
+                                            <div class="accordion-body">
+                                                <div *ngIf="categorie.materiels == ''">
+                                                    Il n'y a aucun matériel d'enregistré dans cette catégorie :(
+                                                </div>
+                                                <table *ngIf="categorie.materiels != ''" id="tableMateriel" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>Identifiant</td>
+                                                            <td>Libelle</td>
+                                                            <td>Description</td>
+                                                            <td>Action</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let materiel of categorie.materiels">
+                                                            <td>#{{materiel.code}}</td>
+                                                            <td>{{materiel.libelle}}</td>
+                                                            <td>{{materiel.description}}</td>
+                                                            <td>
+                                                                <button class="btn bg-light" type="button" data-bs-toggle="modal" data-bs-target="#EmprunterModal" (click)="onChangeCurrentBarCode(materiel.code)">
+                                                                    +
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div *ngIf="listType=='Etudiant'">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Nom</td>
+                            <td>Email</td>
+                            <td>Téléphone</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let etudiant of etudiants">
+                            <td>{{etudiant.id}}</td>
+                            <td>{{etudiant.nom | titlecase }} {{etudiant.prenom | titlecase }}</td>
+                            <td>{{etudiant.mail}}</td>
+                            <td>{{etudiant.tel}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="listType=='Responsable'">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Nom</td>
+                            <td>Adresse</td>
+                            <td>Email</td>
+                            <td>Téléphone</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let responsable of responsables">
+                            <td>{{responsable.id}}</td>
+                            <td>{{responsable.nom | titlecase }} {{responsable.prenom | titlecase }}</td>
+                            <td>{{responsable.adresse | titlecase }}</td>
+                            <td>{{responsable.email}}</td>
+                            <td>{{responsable.tel}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EmprunterModal" tabindex="-1" aria-labelledby="EmprunterModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Nom du matériel</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row justify-content-center">
+                <input id="modalEmprunterRadio" value="Emprunter" name="optionsModal" type="radio" class="btn-check" checked (change)="onModalActionChanged($event)"/>
+                <label class="btn btn-light col-3 m-2" for="modalEmprunterRadio">Emprunter</label>
+                <input id="modalModifierRadio" value="Modifier" name="optionsModal" type="radio" class="btn-check" (change)="onModalActionChanged($event)"/>
+                <label class="btn btn-light col-3 m-2" for="modalModifierRadio">Modifier</label>
+                <input id="modalSupprimerRadio" type="button" class="btn btn-light col-3 m-2" data-bs-dismiss="modal" value="Supprimer"/>
+            </div>
+            <hr class="hr"/>
+            <div *ngIf="currentBarCode" class="row text-center">
+                <ngx-barcode6 [bc-format]="'MSI'" [bc-value]="currentBarCode" [bc-display-value]="true"></ngx-barcode6>
+            </div>
+            <hr class="hr"/>
+            <div class="row">
+                <div class="p-3" *ngIf="modalAction=='Emprunter'">
+                    <form>
+                        <label for="nomEleve">Nom de l'élève</label>
+                        <input id="nomEleve" class="form-control mb-2" type="text" list="eleves" #nomEleve>
+                        <datalist id="eleves">
+                            <option *ngFor="let etudiant of etudiants">{{etudiant.id}} {{etudiant.nom | titlecase }} {{etudiant.prenom | titlecase }}</option>
+                        </datalist>
+                        <input type="button" class="btn btn-primary" value="Emprunter" (click)="onEmprunt(nomEleve.value)"/>
+                    </form>
+                </div>
+                <div class="p-3" *ngIf="modalAction=='Modifier'">
+                    <form>
+                        <label for="intitule">Intitule</label>
+                        <input id="nomEleve" class="form-control mb-2" type="text">
+                        <label for="description">Description</label>
+                        <input id="description" class="form-control mb-2" type="text">
+                        <input type="button" class="btn btn-primary" value="Modifier"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

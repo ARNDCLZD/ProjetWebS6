@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row justify-content-center mt-3 gx-5">
+      <app-infocard titre="Etudiant ? " texte="Accedez à la liste des matériels disponibles et demandez à un utilisateur responsable pour créer un emprunt" class="col-3"></app-infocard>
+      <app-infocard titre="Responsable ?" texte="Naviguez à l'onglet Liste pour gérer le matériel, les élèves et les utilisateurs, ajoutez en dans l'onglet Ajout" class="col-3"></app-infocard>
+      <app-infocard titre="Informations supplémentaires" texte="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." class="col-3"></app-infocard>
+    </div>
+    <hr/>
+    <h2>Derniers arrivages</h2>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Libellé</th>
+                <th scope="col">Description</th>
+                <th scope="col">État du matériel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let arrivage of arrivages">
+                <td>{{arrivage.code}}</td>
+                <td>{{arrivage.libelle}}</td>
+                <td>{{arrivage.description}}</td>
+                <td>{{arrivage.etat}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="row justify-content-center mt-3">
+        <h5 class="col-12 text-center">Type d'ajout</h5>
+        <input id="CategorieRadio" value="Categorie" name="optionsModal" type="radio" class="btn-check" checked (click)=onChangedAction($event)/>
+        <label class="btn btn-light col-2 m-2" for="CategorieRadio">Categorie</label>
+        <input id="MaterielRadio" value="Materiel" name="optionsModal" type="radio" class="btn-check" (click)=onChangedAction($event)/>
+        <label class="btn btn-light col-2 m-2" for="MaterielRadio">Matériel</label>
+        <input id="StockRadio" value="Stock" name="optionsModal" type="radio" class="btn-check" (click)=onChangedAction($event)/>
+        <label class="btn btn-light col-2 m-2" for="StockRadio">Stock</label>
+        <input id="EleveRadio" value="Eleve" name="optionsModal" type="radio" class="btn-check" (click)=onChangedAction($event)/>
+        <label class="btn btn-light col-2 m-2" for="EleveRadio">Eleve</label>
+        <input id="ResponsableRadio" value="Responsable" name="optionsModal" type="radio" class="btn-check" (click)=onChangedAction($event)/>
+        <label class="btn btn-light col-2 m-2" for="ResponsableRadio">Responsable</label>
+    </div>
+    <div class="row border p-3">
+        <div *ngIf="actionValue == 'Categorie'">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="inputAddress">Libellé</label>
+                        <input type="text" class="form-control mb-2" id="inputAddress" placeholder="Souris">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-light border-warning">Créer</button>
+            </form>
+        </div>
+        <div *ngIf="actionValue == 'Materiel'">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="inputAddress">Libellé</label>
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Ecran 16''">
+                    </div>
+                    <div class="form-group col-6">
+                          <label for="inputAddress2">Description</label>
+                          <input type="text" class="form-control" id="inputAddress2" placeholder="Telle marque, telles mesures...">
+                    </div>
+                    <div class="form-group col-4 mb-2">
+                        <label for="inputCategorie">Catégorie</label>
+                        <select id="inputCategorie" class="form-control">
+                            <option selected disabled></option>
+                            <option *ngFor="let categorie of categories">{{categorie.libelle}}</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-light border-warning">Créer</button>
+            </form>
+        </div>
+        <div *ngIf="actionValue == 'Stock'">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-4 mb-2">
+                        <label for="inputMateriel">Matériel</label>
+                        <select id="inputMateriel" class="form-control">
+                            <option selected></option>
+                            <option *ngFor="let materiel of materiels">{{materiel.libelle}}</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-light border-warning">Créer</button>
+            </form>
+        </div>
+        <div *ngIf="actionValue == 'Eleve'">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="inputNom">Nom</label>
+                        <input type="text" class="form-control" id="inputNom" placeholder="Caquet">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputPrenom">Prénom</label>
+                        <input type="text" class="form-control" id="inputPrenom" placeholder="Bilel">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputMail">Mail</label>
+                        <input type="text" class="form-control" id="inputMail" placeholder="aime.arnaud@gmail.com">
+                    </div>
+                    <div class="form-group col-3 mb-2">
+                        <label for="inputTel">Téléphone</label>
+                        <input type="text" class="form-control" id="inputTel" placeholder="0634326436">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-light border-warning">Créer</button>
+            </form>
+        </div>
+        <div *ngIf="actionValue == 'Responsable'">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="inputNom">Nom</label>
+                        <input type="text" class="form-control" id="inputNom" placeholder="Caquet">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputPrenom">Prénom</label>
+                        <input type="text" class="form-control" id="inputPrenom" placeholder="Bilel">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputMail">Mail</label>
+                        <input type="text" class="form-control" id="inputMail" placeholder="aime.arnaud@gmail.com">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputMdp">Mot de passe</label>
+                        <input type="text" class="form-control" id="inputMdp" placeholder="***********">
+                    </div>
+                    <div class="form-group col-3 mb-2">
+                        <label for="inputAdresse">Adresse</label>
+                        <input type="text" class="form-control" id="inputAdresse" placeholder="12 avenue de la république">
+                    </div>
+                    <div class="form-group col-3 mb-2">
+                        <label for="inputTel">Téléphone</label>
+                        <input type="text" class="form-control" id="inputTel" placeholder="0634326436">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-light border-warning">Créer</button>
+            </form>
+        </div>
+    </div>
+</div>

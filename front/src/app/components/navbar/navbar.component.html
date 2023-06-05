@@ -1,0 +1,12 @@
+<nav class="navbar navbar-light bg-dark justify-content-between px-3 text-light">
+    <div>
+        <a routerLink="/" class="navbar-brand text-light">
+            <img width="30" height="30" src="/assets/makechinaproud.png">
+            Mumblebee
+        </a>
+        <a *ngIf="isLoggedIn" class="nav-item text-light text-decoration-none mx-3" routerLink="/liste">Liste</a>
+        <a *ngIf="isLoggedIn" class="nav-item text-light text-decoration-none mx-3" routerLink="/add">Ajouter</a>
+    </div>
+    <button *ngIf="!isLoggedIn" routerLink="/login" type="button" class="btn btn-light">S'authentifier</button>
+    <button *ngIf="isLoggedIn" type="button" class="btn btn-light" (click)="logOut()">Se deconnecter</button>
+</nav>
